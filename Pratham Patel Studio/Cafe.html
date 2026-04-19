@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brew & Bloom Café</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5D4037',
+                        secondary: '#D7CCC8',
+                        accent: '#A1887F',
+                        cream: '#FFF8E1',
+                        green: '#81C784'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%235D4037"/><circle cx="20" cy="20" r="3" fill="%23D7CCC8" opacity="0.3"/><circle cx="50" cy="50" r="5" fill="%23D7CCC8" opacity="0.2"/><circle cx="80" cy="80" r="4" fill="%23D7CCC8" opacity="0.4"/></svg>');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .review-card {
+            transition: all 0.3s ease;
+        }
+        .review-card.active {
+            transform: scale(1.05);
+        }
+        .whatsapp-float {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+        }
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .steam {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .steam-element {
+            position: absolute;
+            bottom: 0;
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            animation: rise 4s linear infinite;
+        }
+        @keyframes rise {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(20px);
+                opacity: 0;
+            }
+        }
+        .review-container {
+            overflow: hidden;
+            position: relative;
+            height: 300px;
+        }
+        .review-slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 100%;
+        }
+        .review-slide {
+            min-width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .review-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            z-index: 10;
+        }
+        .review-nav.prev {
+            left: 10px;
+        }
+        .review-nav.next {
+            right: 10px;
+        }
+        .review-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #D7CCC8;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .indicator.active {
+            background: #5D4037;
+        }
+        /* Hide scrollbar */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        body {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            overflow-x: hidden;
+        }
+        html {
+            overflow-x: hidden;
+        }
+        /* Prevent horizontal scrolling */
+        body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+        .container {
+            max-width: 100%;
+            padding: 0 1rem;
+        }
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 2rem;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-cream text-primary">
+    <!-- WhatsApp Float Button -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <a href="https://wa.me/91XXXXXXXXXX" target="_blank" class="whatsapp-float flex items-center justify-center w-14 h-14 rounded-full bg-green shadow-lg hover:bg-green-600 transition-all duration-300">
+            <i class="fab fa-whatsapp text-white text-xl"></i>
+        </a>
+        <div class="absolute bottom-14 right-0 bg-black text-white text-xs px-3 py-1 rounded-md whitespace-nowrap opacity-0 invisible tooltip transition-opacity duration-300">
+            Chat with us
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg min-h-screen flex items-center relative overflow-hidden">
+        <div class="steam" id="steam-container"></div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 text-white animate-fade-in-down">Welcome to Brew & Bloom Café</h1>
+            <p class="text-xl md:text-2xl text-secondary mb-8 animate-fade-in-up">Where every sip feels like comfort</p>
+            <div class="space-x-4 animate-fade-in-up">
+                <button onclick="scrollToSection('menu')" class="bg-primary hover:bg-secondary text-white font-medium py-3 px-8 rounded-full transition duration-300 transform hover:scale-105">View Menu</button>
+                <button onclick="window.open('https://wa.me/91XXXXXXXXXX', '_blank')" class="border-2 border-white text-white hover:bg-white hover:text-primary font-medium py-3 px-8 rounded-full transition duration-300">Order on WhatsApp</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="scroll-reveal max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-primary">Our Story</h2>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Brew & Bloom Café was born from a passion for creating spaces where people can find solace, inspiration, and warmth. 
+                    We believe that every cup tells a story, and we're committed to crafting beverages and experiences that nourish both body and soul. 
+                    From our carefully selected beans to our cozy atmosphere, everything is designed to make you feel at home.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 scroll-reveal">
+                <div class="bg-secondary p-6 rounded-xl shadow-md">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%235D4037'/><circle cx='150' cy='100' r='40' fill='%23D7CCC8'/></svg>" alt="Interior" class="w-full h-48 object-cover rounded-lg">
+                </div>
+                <div class="bg-secondary p-6 rounded-xl shadow-md">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%23A1887F'/><rect x='50' y='50' width='200' height='100' rx='10' fill='%23D7CCC8'/></svg>" alt="Interior" class="w-full h-48 object-cover rounded-lg">
+                </div>
+                <div class="bg-secondary p-6 rounded-xl shadow-md">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%235D4037'/><path d='M50,100 Q150,50 250,100 T450,100' stroke='%23D7CCC8' stroke-width='2' fill='none'/></svg>" alt="Interior" class="w-full h-48 object-cover rounded-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-20 bg-cream">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-primary">Our Menu</h2>
+                <p class="text-lg text-gray-700 max-w-2xl mx-auto">Handcrafted with care and passion for those who appreciate fine flavor and ambiance.</p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-4 mb-10">
+                <button class="bg-primary text-white px-6 py-2 rounded-full active" onclick="filterMenu('all')">All</button>
+                <button class="bg-secondary text-primary px-6 py-2 rounded-full hover:bg-primary hover:text-white" onclick="filterMenu('coffee')">Coffee</button>
+                <button class="bg-secondary text-primary px-6 py-2 rounded-full hover:bg-primary hover:text-white" onclick="filterMenu('desserts')">Desserts</button>
+                <button class="bg-secondary text-primary px-6 py-2 rounded-full hover:bg-primary hover:text-white" onclick="filterMenu('snacks')">Snacks</button>
+                <button class="bg-secondary text-primary px-6 py-2 rounded-full hover:bg-primary hover:text-white" onclick="filterMenu('cold-beverages')">Cold Beverages</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 scroll-reveal">
+                <!-- Coffee Items -->
+                <div class="bg-white p-6 rounded-xl shadow-md menu-card transition-all duration-300 menu-item" data-category="coffee">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-primary">Espresso Royale</h3>
+                        <span class="text-xl font-semibold text-accent">$4.50</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Rich, bold espresso with a velvety crema</p>
+                    <button class="bg-primary hover:bg-secondary text-white py-2 px-4 rounded-full text-sm transition duration-300">Order Now</button>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md menu-card transition-all duration-300 menu-item" data-category="coffee">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-primary">Caramel Macchiato</h3>
+                        <span class="text-xl font-semibold text-accent">$5.25</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Smooth espresso layered with vanilla syrup and steamed milk</p>
+                    <button class="bg-primary hover:bg-secondary text-white py-2 px-4 rounded-full text-sm transition duration-300">Order Now</button>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md menu-card transition-all duration-300 menu-item" data-category="coffee">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-primary">Cold Brew</h3>
+                        <span class="text-xl font-semibold text-accent">$4.75</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Slow-steeped cold brew concentrate with creamy texture</p>
+                    <button class="bg-primary hover:bg-secondary text-white py-2 px-4 rounded-full text-sm transition duration-300">Order Now</button>
+                </div>
+                
+                <!-- Dessert Items -->
+                <div class="bg-white p-6 rounded-xl shadow-md menu-card transition-all duration-300 menu-item" data-category="desserts">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-primary">Chocolate Croissant</h3>
+                        <span class="text-xl font-semibold text-accent">$3.50</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Flaky pastry filled with rich dark chocolate</p>
+                    <button class="bg-primary hover:bg-secondary text-white py-2 px-4 rounded-full text-sm transition duration-300">Order Now</button>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md menu-card transition-all duration-300 menu-item" data-category="desserts">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-primary">Lavender Scone</h3>
+                        <span class="text-xl font-semibold text-accent">$3.25</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Buttery scone infused with lavender and served with clotted cream</p>
+                    <button class="bg-primary hover:bg-secondary text-white py-2 px-4 rounded-full text-sm transition duration-300">Order Now</button>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md menu-card transition-all duration-300 menu-item" data-category="desserts">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-primary">Tiramisu Slice</h3>
+                        <span class="text-xl font-semibold text-accent">$4.00</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Classic Italian dessert with layers of coffee-soaked ladyfingers</p>
+                    <button class="bg-primary hover:bg-secondary text-white py-2 px-4 rounded-full text-sm transition duration-300">Order Now</button>
+                </div>
+                
+                <!-- Snack Items -->
+                <div class="bg-white p-6 rounded-xl shadow-md menu-card transition-all duration-300 menu-item" data-category="snacks">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-primary">Avocado Toast</h3>
+                        <span class="text-xl font-semibold text-accent">$6.50</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Fresh avocado on artisan sourdough with cherry tomatoes</p>
+                    <button class="bg-primary hover:bg-secondary text-white py-2 px-4 rounded-full text-sm transition duration-300">Order Now</button>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md menu-card transition-all duration-300 menu-item" data-category="snacks">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-primary">Berry Muffin</h3>
+                        <span class="text-xl font-semibold text-accent">$3.75</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Fresh blueberries in a fluffy, buttery muffin</p>
+                    <button class="bg-primary hover:bg-secondary text-white py-2 px-4 rounded-full text-sm transition duration-300">Order Now</button>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md menu-card transition-all duration-300 menu-item" data-category="snacks">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-primary">Cheese & Crackers</h3>
+                        <span class="text-xl font-semibold text-accent">$5.00</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Selection of local cheeses with house-made crackers</p>
+                    <button class="bg-primary hover:bg-secondary text-white py-2 px-4 rounded-full text-sm transition duration-300">Order Now</button>
+                </div>
+                
+                <!-- Cold Beverage Items -->
+                <div class="bg-white p-6 rounded-xl shadow-md menu-card transition-all duration-300 menu-item" data-category="cold-beverages">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-primary">Iced Caramel Latte</h3>
+                        <span class="text-xl font-semibold text-accent">$5.50</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Smooth espresso with vanilla syrup over ice</p>
+                    <button class="bg-primary hover:bg-secondary text-white py-2 px-4 rounded-full text-sm transition duration-300">Order Now</button>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md menu-card transition-all duration-300 menu-item" data-category="cold-beverages">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-primary">Refreshing Lemonade</h3>
+                        <span class="text-xl font-semibold text-accent">$4.25</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Freshly squeezed lemons with a hint of mint</p>
+                    <button class="bg-primary hover:bg-secondary text-white py-2 px-4 rounded-full text-sm transition duration-300">Order Now</button>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md menu-card transition-all duration-300 menu-item" data-category="cold-beverages">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-primary">Strawberry Smoothie</h3>
+                        <span class="text-xl font-semibold text-accent">$6.00</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Creamy blend of fresh strawberries and banana</p>
+                    <button class="bg-primary hover:bg-secondary text-white py-2 px-4 rounded-full text-sm transition duration-300">Order Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-primary">Gallery</h2>
+                <p class="text-lg text-gray-700 max-w-2xl mx-auto">Experience the warmth and beauty of our café space</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="relative group overflow-hidden rounded-xl">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%235D4037'/><circle cx='200' cy='150' r='80' fill='%23D7CCC8'/><rect x='150' y='100' width='100' height='100' rx='10' fill='%23A1887F'/></svg>" alt="Gallery" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-xl">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23A1887F'/><rect x='100' y='50' width='200' height='200' rx='10' fill='%23D7CCC8'/><circle cx='200' cy='150' r='30' fill='%235D4037'/></svg>" alt="Gallery" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-xl">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%235D4037'/><rect x='50' y='50' width='300' height='200' rx='20' fill='%23D7CCC8'/><rect x='100' y='100' width='200' height='100' rx='10' fill='%23A1887F'/></svg>" alt="Gallery" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-xl">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23D7CCC8'/><circle cx='200' cy='150' r='60' fill='%235D4037'/><rect x='150' y='100' width='100' height='100' rx='10' fill='%23A1887F'/></svg>" alt="Gallery" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-xl">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%235D4037'/><circle cx='100' cy='100' r='40' fill='%23D7CCC8'/><circle cx='300' cy='200' r='50' fill='%23A1887F'/></svg>" alt="Gallery" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-xl">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23A1887F'/><rect x='100' y='100' width='200' height='100' rx='10' fill='%235D4037'/><circle cx='200' cy='150' r='30' fill='%23D7CCC8'/></svg>" alt="Gallery" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-20 bg-cream">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-primary">Customer Reviews</h2>
+                <p class="text-lg text-gray-700 max-w-2xl mx-auto">What our guests say about their experience</p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="review-container">
+                    <div class="review-slider" id="reviewSlider">
+                        <div class="review-slide">
+                            <div class="review-card active bg-white p-8 rounded-xl shadow-md mb-8">
+                                <div class="flex items-center mb-4">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="ml-2 text-gray-600">4.5/5</span>
+                                </div>
+                                <p class="text-gray-700 text-lg italic mb-6">"Best coffee in town! The atmosphere is so inviting and peaceful. Every visit feels like a retreat."</p>
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 rounded-full bg-secondary mr-4"></div>
+                                    <div>
+                                        <h4 class="font-semibold text-primary">Sarah Johnson</h4>
+                                        <p class="text-gray-600">Regular Customer</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-slide">
+                            <div class="review-card active bg-white p-8 rounded-xl shadow-md mb-8">
+                                <div class="flex items-center mb-4">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                    <span class="ml-2 text-gray-600">4/5</span>
+                                </div>
+                                <p class="text-gray-700 text-lg italic mb-6">"The staff is incredibly friendly and knowledgeable. They always remember my order!"</p>
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 rounded-full bg-secondary mr-4"></div>
+                                    <div>
+                                        <h4 class="font-semibold text-primary">Michael Chen</h4>
+                                        <p class="text-gray-600">Frequent Visitor</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-slide">
+                            <div class="review-card active bg-white p-8 rounded-xl shadow-md mb-8">
+                                <div class="flex items-center mb-4">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="ml-2 text-gray-600">5/5</span>
+                                </div>
+                                <p class="text-gray-700 text-lg italic mb-6">"Absolutely perfect place for a morning coffee. The croissants are to die for!"</p>
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 rounded-full bg-secondary mr-4"></div>
+                                    <div>
+                                        <h4 class="font-semibold text-primary">Emma Rodriguez</h4>
+                                        <p class="text-gray-600">New Customer</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-slide">
+                            <div class="review-card active bg-white p-8 rounded-xl shadow-md mb-8">
+                                <div class="flex items-center mb-4">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                    <span class="ml-2 text-gray-600">4.5/5</span>
+                                </div>
+                                <p class="text-gray-700 text-lg italic mb-6">"Love their seasonal offerings. The pumpkin spice latte in fall is amazing!"</p>
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 rounded-full bg-secondary mr-4"></div>
+                                    <div>
+                                        <h4 class="font-semibold text-primary">David Wilson</h4>
+                                        <p class="text-gray-600">Seasonal Customer</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="review-nav prev" id="prevBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="review-nav next" id="nextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                
+                <div class="review-indicators" id="reviewIndicators">
+                    <div class="indicator active" data-index="0"></div>
+                    <div class="indicator" data-index="1"></div>
+                    <div class="indicator" data-index="2"></div>
+                    <div class="indicator" data-index="3"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visit Us Section -->
+    <section id="visit-us" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-primary">Visit Us</h2>
+                <p class="text-lg text-gray-700 max-w-2xl mx-auto">We'd love to welcome you to our cozy haven</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="scroll-reveal">
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4 text-primary">Location</h3>
+                        <p class="text-gray-700">123 Cozy Lane<br>Artisan District<br>Cityville, CA 90210</p>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4 text-primary">Contact Info</h3>
+                        <p class="text-gray-700">📞 (555) 123-4567<br>✉️ hello@brewandbloomcafe.com</p>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4 text-primary">Hours</h3>
+                        <p class="text-gray-700">Monday - Friday: 7am - 8pm<br>Saturday - Sunday: 8am - 9pm</p>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h3 class="text-xl font-bold mb-4 text-primary">Follow Us</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-primary hover:bg-primary hover:text-white transition duration-300">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-primary hover:bg-primary hover:text-white transition duration-300">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-primary hover:bg-primary hover:text-white transition duration-300">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scroll-reveal">
+                    <div class="bg-gray-200 rounded-xl h-96 mb-8 flex items-center justify-center">
+                        <div class="text-center">
+                            <i class="fas fa-map-marker-alt text-4xl text-primary mb-4"></i>
+                            <p class="text-gray-700">Google Maps Embed Would Go Here</p>
+                        </div>
+                    </div>
+                    
+                    <form class="space-y-6">
+                        <div>
+                            <input type="text" placeholder="Your Name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        <div>
+                            <input type="email" placeholder="Email Address" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        <div>
+                            <textarea placeholder="Your Message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary hover:bg-secondary text-white font-medium py-3 px-8 rounded-lg transition duration-300">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h3 class="text-2xl font-bold mb-4">Brew & Bloom Café</h3>
+            <p class="mb-6 max-w-2xl mx-auto">Crafted with care, served with warmth, and enjoyed with friends</p>
+            <p class="text-secondary">© 2023 Brew & Bloom Café. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Create steam effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const steamContainer = document.getElementById('steam-container');
+            for(let i = 0; i < 15; i++) {
+                const steamElement = document.createElement('div');
+                steamElement.classList.add('steam-element');
+                steamElement.style.left = `${Math.random() * 100}%`;
+                steamElement.style.animationDelay = `${Math.random() * 5}s`;
+                steamElement.style.animationDuration = `${4 + Math.random() * 3}s`;
+                steamContainer.appendChild(steamElement);
+            }
+
+            // Scroll reveal animation
+            const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            scrollRevealElements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // Smooth scrolling
+            function scrollToSection(sectionId) {
+                const element = document.getElementById(sectionId);
+                if(element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            // Add event listeners to buttons
+            document.querySelectorAll('button').forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.05)';
+                });
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+
+            // WhatsApp tooltip
+            const whatsappButton = document.querySelector('.whatsapp-float');
+            const tooltip = document.querySelector('.tooltip');
+            
+            whatsappButton.addEventListener('mouseenter', function() {
+                tooltip.classList.remove('opacity-0', 'invisible');
+                tooltip.classList.add('opacity-100', 'visible');
+            });
+            
+            whatsappButton.addEventListener('mouseleave', function() {
+                tooltip.classList.add('opacity-0', 'invisible');
+                tooltip.classList.remove('opacity-100', 'visible');
+            });
+            
+            // Review slider functionality
+            const reviewSlider = document.getElementById('reviewSlider');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const indicators = document.querySelectorAll('.indicator');
+            let currentIndex = 0;
+            const slideCount = document.querySelectorAll('.review-slide').length;
+            
+            // Initialize slider
+            function updateSlider() {
+                reviewSlider.style.transform = `translateX(-${currentIndex * 100}%)`;
+                
+                // Update indicators
+                indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === currentIndex);
+                });
+            }
+            
+            // Next button click
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % slideCount;
+                updateSlider();
+            });
+            
+            // Previous button click
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+                updateSlider();
+            });
+            
+            // Indicator click
+            indicators.forEach(indicator => {
+                indicator.addEventListener('click', () => {
+                    currentIndex = parseInt(indicator.getAttribute('data-index'));
+                    updateSlider();
+                });
+            });
+            
+            // Auto-scroll every 5 seconds
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % slideCount;
+                updateSlider();
+            }, 5000);
+        });
+
+        // Filter menu function
+        function filterMenu(category) {
+            const menuItems = document.querySelectorAll('.menu-item');
+            const filterButtons = document.querySelectorAll('.flex button');
+
+            // Update active button
+            filterButtons.forEach(button => {
+                if (button.textContent.toLowerCase().includes(category) || 
+                    (category === 'all' && button.textContent.toLowerCase() === 'all')) {
+                    button.classList.add('bg-primary', 'text-white');
+                } else {
+                    button.classList.remove('bg-primary', 'text-white');
+                    button.classList.add('bg-secondary', 'text-primary');
+                }
+            });
+
+            // Filter items
+            menuItems.forEach(item => {
+                if (category === 'all') {
+                    item.style.display = 'block';
+                } else {
+                    if (item.getAttribute('data-category') === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

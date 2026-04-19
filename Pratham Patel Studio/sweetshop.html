@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shree Krishna Sweets and Farshan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        maroon: '#6b0f1a',
+                        gold: '#d4af37',
+                        ivory: '#f5e9d8',
+                        darkmaroon: '#4a0a12'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5e9d8;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        .hero-overlay {
+            background: linear-gradient(rgba(107, 15, 26, 0.8), rgba(107, 15, 26, 0.9)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%236b0f1a"/><circle cx="20" cy="20" r="3" fill="%23d4af37" opacity="0.3"/><circle cx="50" cy="50" r="5" fill="%23d4af37" opacity="0.2"/><circle cx="80" cy="80" r="4" fill="%23d4af37" opacity="0.3"/></svg>');
+        }
+        .product-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+        }
+        .menu-item {
+            transition: all 0.3s ease;
+        }
+        .menu-item:hover {
+            color: #d4af37;
+        }
+        .divider {
+            position: relative;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .divider::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #d4af37;
+            z-index: 1;
+        }
+        .divider span {
+            background: #f5e9d8;
+            position: relative;
+            z-index: 2;
+            padding: 0 1rem;
+            color: #6b0f1a;
+        }
+        .gold-accent {
+            border-top: 2px solid #d4af37;
+            border-bottom: 2px solid #d4af37;
+        }
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: scale(1.05);
+        }
+        .gallery-img {
+            transition: all 0.5s ease;
+        }
+        .gallery-img:hover {
+            transform: scale(1.1);
+            opacity: 0.9;
+        }
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        .sweets-section {
+            transition: all 0.3s ease;
+        }
+        .farsan-section {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="font-poppins bg-ivory">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="w-10 h-10 bg-gradient-to-r from-maroon to-gold rounded-full flex items-center justify-center text-white font-bold text-xl">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'><circle cx='20' cy='20' r='18' fill='%23d4af37'/><circle cx='20' cy='20' r='10' fill='%236b0f1a'/><path d='M15 15 L25 25 M25 15 L15 25' stroke='%23d4af37' stroke-width='2'/></svg>" alt="Shop Logo" class="w-8 h-8">
+                        </div>
+                        <span class="ml-2 text-xl font-bold text-maroon">Shree Krishna</span>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <button onclick="scrollToSection('home')" class="menu-item text-yellow-400 font-medium">Home</button>
+                    <button onclick="scrollToSection('about')" class="menu-item text-yellow-400 font-medium">About</button>
+                    <button onclick="scrollToSection('products')" class="menu-item text-yellow-400 font-medium">Products</button>
+                    <button onclick="scrollToSection('gallery')" class="menu-item text-yellow-400 font-medium">Gallery</button>
+                    <button onclick="scrollToSection('contact')" class="menu-item text-yellow-400 font-medium">Contact</button>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button class="text-maroon">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Top Bar -->
+    <div class="bg-yellow-400 text-maroon text-center py-2 text-sm font-bold">
+        Traditional Indian Sweets & Farsan Shop – Anand, Gujarat
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-overlay min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="text-center">
+                <p class="text-gold text-lg mb-4 tracking-wider">CELEBRATE TRADITION</p>
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">Shree Krishna</h1>
+                <p class="text-xl md:text-2xl text-ivory mb-6">Sweets & Farshan</p>
+                <p class="text-lg text-ivory mb-10 max-w-2xl mx-auto">Pure Taste of Tradition</p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <button onclick="scrollToSection('products')" class="bg-gold hover:bg-yellow-600 text-maroon font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105">
+                        Explore Products
+                    </button>
+                    <button onclick="scrollToSection('about')" class="border-2 border-gold text-gold hover:bg-gold hover:text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">
+                        Our Story
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-darkmaroon">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-white mb-4">Our Legacy</h2>
+                <div class="divider">
+                    <span>Trusted Since 1985</span>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <p class="text-gray-200 mb-6 text-lg leading-relaxed">
+                        For over three decades, Shree Krishna Sweets and Farshan has been delighting families across Anand with authentic Indian sweets and farsan. Our journey began with a vision to preserve the rich culinary heritage of India.
+                    </p>
+                    <p class="text-gray-200 mb-6 text-lg leading-relaxed">
+                        We believe in using only the freshest ingredients sourced from local markets, ensuring each item maintains its traditional taste and aroma. Our skilled artisans follow age-old recipes passed down through generations, creating confections that bring joy to every celebration.
+                    </p>
+                    <p class="text-gray-200 text-lg leading-relaxed">
+                        With unwavering commitment to hygiene, quality, and authenticity, we've earned the trust of countless families who cherish our sweets for weddings, festivals, and everyday moments of happiness.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 fade-in">
+                    <div class="feature-card bg-maroon p-6 rounded-xl border border-gray-700 text-center">
+                        <div class="w-16 h-16 bg-gradient-to-r from-gold to-maroon rounded-full flex items-center justify-center text-white text-2xl mx-auto mb-4">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3 class="text-white font-bold text-lg mb-2">Fresh Ingredients</h3>
+                        <p class="text-gray-300 text-sm">Only the finest natural ingredients sourced locally</p>
+                    </div>
+                    
+                    <div class="feature-card bg-maroon p-6 rounded-xl border border-gray-700 text-center">
+                        <div class="w-16 h-16 bg-gradient-to-r from-gold to-maroon rounded-full flex items-center justify-center text-white text-2xl mx-auto mb-4">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <h3 class="text-white font-bold text-lg mb-2">Hygiene First</h3>
+                        <p class="text-gray-300 text-sm">Stringent cleanliness protocols for your peace of mind</p>
+                    </div>
+                    
+                    <div class="feature-card bg-maroon p-6 rounded-xl border border-gray-700 text-center">
+                        <div class="w-16 h-16 bg-gradient-to-r from-gold to-maroon rounded-full flex items-center justify-center text-white text-2xl mx-auto mb-4">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3 class="text-white font-bold text-lg mb-2">Traditional Recipes</h3>
+                        <p class="text-gray-300 text-sm">Authentic family recipes passed down through generations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-20 bg-ivory">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-maroon mb-4">Our Products</h2>
+                <div class="flex justify-center mb-8">
+                    <div class="inline-flex p-1 bg-white rounded-lg shadow">
+                        <button id="sweets-btn" class="px-6 py-2 rounded-md text-yellow-400 font-medium bg-white shadow-sm" onclick="showSweets()">Sweets</button>
+                        <button id="farsan-btn" class="px-6 py-2 rounded-md text-gray-500 font-medium hover:text-maroon" onclick="showFarsan()">Farsan</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sweets Section -->
+            <div id="sweets-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Product 1 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-r from-gold to-maroon relative">
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'><circle cx='150' cy='150' r='120' fill='%23d4af37' opacity='0.9'/><circle cx='120' cy='120' r='30' fill='%236b0f1a'/><circle cx='180' cy='180' r='25' fill='%236b0f1a'/><circle cx='150' cy='150' r='40' fill='%23fff'/></svg>" alt="Kaju Katli" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-maroon mb-2">Kaju Katli</h3>
+                        <p class="text-gray-600 text-sm mb-4">Premium cashew fudge with a rich, buttery flavor and smooth texture.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="text-gold font-bold">₹250/kg</div>
+                            <button class="text-gold hover:text-maroon">
+                                <i class="fas fa-plus-circle"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-r from-maroon to-gold relative">
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'><rect x='30' y='30' width='240' height='240' rx='20' fill='%236b0f1a' opacity='0.8'/><circle cx='100' cy='100' r='30' fill='%23d4af37'/><circle cx='200' cy='200' r='25' fill='%23d4af37'/><circle cx='150' cy='150' r='35' fill='%23fff'/></svg>" alt="Gulab Jamun" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-maroon mb-2">Gulab Jamun</h3>
+                        <p class="text-gray-600 text-sm mb-4">Soft milk balls soaked in aromatic rose syrup with nuts.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="text-gold font-bold">₹180/kg</div>
+                            <button class="text-gold hover:text-maroon">
+                                <i class="fas fa-plus-circle"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-r from-gold to-maroon relative">
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'><circle cx='150' cy='150' r='120' fill='%23d4af37' opacity='0.9'/><circle cx='120' cy='120' r='30' fill='%236b0f1a'/><circle cx='180' cy='180' r='25' fill='%236b0f1a'/><circle cx='150' cy='150' r='40' fill='%23fff'/></svg>" alt="Motichoor Laddu" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-maroon mb-2">Motichoor Laddu</h3>
+                        <p class="text-gray-600 text-sm mb-4">Delicious laddus made with sweet chhole and coconut.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="text-gold font-bold">₹220/kg</div>
+                            <button class="text-gold hover:text-maroon">
+                                <i class="fas fa-plus-circle"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-r from-maroon to-gold relative">
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'><rect x='30' y='30' width='240' height='240' rx='20' fill='%236b0f1a' opacity='0.8'/><circle cx='100' cy='100' r='30' fill='%23d4af37'/><circle cx='200' cy='200' r='25' fill='%23d4af37'/><circle cx='150' cy='150' r='35' fill='%23fff'/></svg>" alt="Peda" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-maroon mb-2">Peda</h3>
+                        <p class="text-gray-600 text-sm mb-4">Classic Indian sweet made with khoya, sugar, and cardamom.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="text-gold font-bold">₹160/kg</div>
+                            <button class="text-gold hover:text-maroon">
+                                <i class="fas fa-plus-circle"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Farsan Section -->
+            <div id="farsan-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 hidden">
+                <!-- Farsan Product 1 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-r from-gold to-maroon relative">
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'><circle cx='150' cy='150' r='120' fill='%23d4af37' opacity='0.9'/><circle cx='120' cy='120' r='30' fill='%236b0f1a'/><circle cx='180' cy='180' r='25' fill='%236b0f1a'/><circle cx='150' cy='150' r='40' fill='%23fff'/></svg>" alt="Sev" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-maroon mb-2">Sev</h3>
+                        <p class="text-gray-600 text-sm mb-4">Crispy fried gram flour noodles with tangy flavor.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="text-gold font-bold">₹120/kg</div>
+                            <button class="text-gold hover:text-maroon">
+                                <i class="fas fa-plus-circle"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Farsan Product 2 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-r from-maroon to-gold relative">
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'><rect x='30' y='30' width='240' height='240' rx='20' fill='%236b0f1a' opacity='0.8'/><circle cx='100' cy='100' r='30' fill='%23d4af37'/><circle cx='200' cy='200' r='25' fill='%23d4af37'/><circle cx='150' cy='150' r='35' fill='%23fff'/></svg>" alt="Aloo Bhujia" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-maroon mb-2">Aloo Bhujia</h3>
+                        <p class="text-gray-600 text-sm mb-4">Spicy potato fritters with a perfect crunch.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="text-gold font-bold">₹150/kg</div>
+                            <button class="text-gold hover:text-maroon">
+                                <i class="fas fa-plus-circle"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Farsan Product 3 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-r from-gold to-maroon relative">
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'><circle cx='150' cy='150' r='120' fill='%23d4af37' opacity='0.9'/><circle cx='120' cy='120' r='30' fill='%236b0f1a'/><circle cx='180' cy='180' r='25' fill='%236b0f1a'/><circle cx='150' cy='150' r='40' fill='%23fff'/></svg>" alt="Paneer Pakoda" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-maroon mb-2">Paneer Pakoda</h3>
+                        <p class="text-gray-600 text-sm mb-4">Crispy cottage cheese fritters with green chilies.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="text-gold font-bold">₹180/kg</div>
+                            <button class="text-gold hover:text-maroon">
+                                <i class="fas fa-plus-circle"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Farsan Product 4 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-r from-maroon to-gold relative">
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'><rect x='30' y='30' width='240' height='240' rx='20' fill='%236b0f1a' opacity='0.8'/><circle cx='100' cy='100' r='30' fill='%23d4af37'/><circle cx='200' cy='200' r='25' fill='%23d4af37'/><circle cx='150' cy='150' r='35' fill='%23fff'/></svg>" alt="Chaat Masala" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-maroon mb-2">Chaat Masala</h3>
+                        <p class="text-gray-600 text-sm mb-4">Spicy blend of spices perfect for farsan preparation.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="text-gold font-bold">₹200/kg</div>
+                            <button class="text-gold hover:text-maroon">
+                                <i class="fas fa-plus-circle"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-maroon mb-4">Our Gallery</h2>
+                <div class="divider">
+                    <span>Behind the Scenes</span>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="gallery-img relative h-64 overflow-hidden rounded-xl">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'><rect width='400' height='400' fill='%23f5e9d8'/><rect x='50' y='50' width='300' height='300' rx='20' fill='%23d4af37' opacity='0.8'/><circle cx='150' cy='150' r='40' fill='%236b0f1a'/><circle cx='250' cy='250' r='30' fill='%236b0f1a'/><circle cx='200' cy='200' r='50' fill='%23fff'/></svg>" alt="Shop Interior" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+                        <h3 class="font-bold">Shop Interior</h3>
+                    </div>
+                </div>
+                
+                <div class="gallery-img relative h-64 overflow-hidden rounded-xl">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'><rect width='400' height='400' fill='%236b0f1a'/><rect x='50' y='50' width='300' height='300' rx='20' fill='%23d4af37' opacity='0.8'/><circle cx='150' cy='150' r='40' fill='%23f5e9d8'/><circle cx='250' cy='250' r='30' fill='%23f5e9d8'/><circle cx='200' cy='200' r='50' fill='%23fff'/></svg>" alt="Sweets Tray" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+                        <h3 class="font-bold">Sweets Tray</h3>
+                    </div>
+                </div>
+                
+                <div class="gallery-img relative h-64 overflow-hidden rounded-xl">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'><rect width='400' height='400' fill='%23f5e9d8'/><rect x='50' y='50' width='300' height='300' rx='20' fill='%236b0f1a' opacity='0.8'/><circle cx='150' cy='150' r='40' fill='%23d4af37'/><circle cx='250' cy='250' r='30' fill='%23d4af37'/><circle cx='200' cy='200' r='50' fill='%23fff'/></svg>" alt="Packaging" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+                        <h3 class="font-bold">Packaging</h3>
+                    </div>
+                </div>
+                
+                <div class="gallery-img relative h-64 overflow-hidden rounded-xl">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'><rect width='400' height='400' fill='%23d4af37'/><rect x='50' y='50' width='300' height='300' rx='20' fill='%236b0f1a' opacity='0.8'/><circle cx='150' cy='150' r='40' fill='%23f5e9d8'/><circle cx='250' cy='250' r='30' fill='%23f5e9d8'/><circle cx='200' cy='200' r='50' fill='%23fff'/></svg>" alt="Cooking" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+                        <h3 class="font-bold">Traditional Cooking</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-ivory">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-maroon mb-4">Contact Us</h2>
+                <div class="divider">
+                    <span>Visit Our Store</span>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="bg-white p-8 rounded-2xl shadow-lg">
+                    <h3 class="text-2xl font-bold text-maroon mb-6">Get in Touch</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-maroon text-white p-3 rounded-full mr-4">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-maroon">Address</h4>
+                                <p class="text-gray-600">123 Sweet Lane<br>Anand, Gujarat 388001</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-maroon text-white p-3 rounded-full mr-4">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-maroon">Phone</h4>
+                                <p class="text-gray-600">+91 98765 43210</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-maroon text-white p-3 rounded-full mr-4">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-maroon">Business Hours</h4>
+                                <p class="text-gray-600">Monday - Saturday: 9:00 AM - 8:00 PM<br>Sunday: 10:00 AM - 6:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-6 bg-gradient-to-r from-maroon to-gold rounded-xl text-white">
+                        <h4 class="font-bold text-lg mb-2">Customer Testimonial</h4>
+                        <p class="italic mb-4">"The Kaju Katli from Shree Krishna is simply the best I've ever tasted. The quality and taste are unmatched. Highly recommended!"</p>
+                        <p class="font-bold">- Priya Sharma</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-lg">
+                    <h3 class="text-2xl font-bold text-maroon mb-6">Visit Our Store</h3>
+                    <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-80 flex items-center justify-center text-gray-500">
+                        <i class="fas fa-map-marked-alt text-4xl"></i>
+                        <p class="ml-2">Google Map Embed Placeholder</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-darkmaroon text-ivory py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-r from-gold to-maroon rounded-full flex items-center justify-center text-white font-bold text-xl">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'><circle cx='20' cy='20' r='18' fill='%23d4af37'/><circle cx='20' cy='20' r='10' fill='%236b0f1a'/><path d='M15 15 L25 25 M25 15 L15 25' stroke='%23d4af37' stroke-width='2'/></svg>" alt="Shop Logo" class="w-8 h-8">
+                        </div>
+                        <span class="ml-2 text-xl font-bold">Shree Krishna</span>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Bringing the authentic taste of India to your table since 1985.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-gold transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-gold transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-gold transition">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><button onclick="scrollToSection('home')" class="text-gray-300 hover:text-gold transition">Home</button></li>
+                        <li><button onclick="scrollToSection('about')" class="text-gray-300 hover:text-gold transition">About Us</button></li>
+                        <li><button onclick="scrollToSection('products')" class="text-gray-300 hover:text-gold transition">Products</button></li>
+                        <li><button onclick="scrollToSection('gallery')" class="text-gray-300 hover:text-gold transition">Gallery</button></li>
+                        <li><button onclick="scrollToSection('contact')" class="text-gray-300 hover:text-gold transition">Contact</button></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Products</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-gold transition">Sweets</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-gold transition">Farsan</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-gold transition">Gift Boxes</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-gold transition">Custom Orders</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-gold transition">Seasonal Specials</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Business Hours</h4>
+                    <p class="text-gray-300 mb-2">Monday - Saturday: 9:00 AM - 8:00 PM</p>
+                    <p class="text-gray-300 mb-2">Sunday: 10:00 AM - 6:00 PM</p>
+                    <p class="text-gray-300 mt-4">Contact: +91 98765 43210</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 Shree Krishna Sweets and Farshan. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('appear');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        function showSweets() {
+            document.getElementById('sweets-container').classList.remove('hidden');
+            document.getElementById('farsan-container').classList.add('hidden');
+            const buttons = document.querySelectorAll('#products .inline-flex button');
+            buttons[0].classList.add('bg-white', 'shadow-sm');
+            buttons[0].classList.remove('text-gray-500');
+            buttons[1].classList.remove('bg-white', 'shadow-sm');
+            buttons[1].classList.add('text-gray-500');
+            
+            // Add hover and active effects to sweets section
+            const sweetsSection = document.getElementById('sweets-container');
+            sweetsSection.classList.add('sweets-section');
+            
+            // Remove farsan section effects
+            const farsanSection = document.getElementById('farsan-container');
+            farsanSection.classList.remove('farsan-section');
+        }
+
+        function showFarsan() {
+            document.getElementById('sweets-container').classList.add('hidden');
+            document.getElementById('farsan-container').classList.remove('hidden');
+            const buttons = document.querySelectorAll('#products .inline-flex button');
+            buttons[0].classList.remove('bg-white', 'shadow-sm');
+            buttons[0].classList.add('text-gray-500');
+            buttons[1].classList.add('bg-white', 'shadow-sm');
+            buttons[1].classList.remove('text-gray-500');
+            
+            // Add hover and active effects to farsan section
+            const farsanSection = document.getElementById('farsan-container');
+            farsanSection.classList.add('farsan-section');
+            
+            // Remove sweets section effects
+            const sweetsSection = document.getElementById('sweets-container');
+            sweetsSection.classList.remove('sweets-section');
+        }
+        
+        // Add hover and active states for menu buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const sweetsBtn = document.getElementById('sweets-btn');
+            const farsanBtn = document.getElementById('farsan-btn');
+            
+            // Add hover effect to buttons
+            sweetsBtn.addEventListener('mouseenter', function() {
+                if (!this.classList.contains('bg-white')) {
+                    this.classList.add('text-maroon');
+                }
+            });
+            
+            sweetsBtn.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('bg-white')) {
+                    this.classList.remove('text-maroon');
+                }
+            });
+            
+            farsanBtn.addEventListener('mouseenter', function() {
+                if (!this.classList.contains('bg-white')) {
+                    this.classList.add('text-maroon');
+                }
+            });
+            
+            farsanBtn.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('bg-white')) {
+                    this.classList.remove('text-maroon');
+                }
+            });
+            
+            // Add active state for currently selected section
+            const productsSection = document.getElementById('products');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const rect = entry.boundingClientRect;
+                        if (rect.top < window.innerHeight / 2) {
+                            // Check which section is currently active
+                            const sweetsVisible = document.getElementById('sweets-container').classList.contains('hidden');
+                            if (sweetsVisible) {
+                                // Farsan is visible
+                                sweetsBtn.classList.remove('bg-white', 'shadow-sm');
+                                farsanBtn.classList.add('bg-white', 'shadow-sm');
+                                sweetsBtn.classList.add('text-gray-500');
+                                farsanBtn.classList.remove('text-gray-500');
+                            } else {
+                                // Sweets is visible
+                                sweetsBtn.classList.add('bg-white', 'shadow-sm');
+                                farsanBtn.classList.remove('bg-white', 'shadow-sm');
+                                sweetsBtn.classList.remove('text-gray-500');
+                                farsanBtn.classList.add('text-gray-500');
+                            }
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+            
+            observer.observe(productsSection);
+            
+            // Add hover effects to product containers
+            const sweetsContainer = document.getElementById('sweets-container');
+            const farsanContainer = document.getElementById('farsan-container');
+            
+            sweetsContainer.addEventListener('mouseenter', function() {
+                if (!this.classList.contains('hidden')) {
+                    this.classList.add('bg-yellow-50');
+                }
+            });
+            
+            sweetsContainer.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('hidden')) {
+                    this.classList.remove('bg-yellow-50');
+                }
+            });
+            
+            farsanContainer.addEventListener('mouseenter', function() {
+                if (!this.classList.contains('hidden')) {
+                    this.classList.add('bg-green-50');
+                }
+            });
+            
+            farsanContainer.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('hidden')) {
+                    this.classList.remove('bg-green-50');
+                }
+            });
+            
+            // Show sweets by default
+            showSweets();
+        });
+    </script>
+</body>
+</html>

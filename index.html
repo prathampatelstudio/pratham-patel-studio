@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	 <meta name="description" content="Pratham Patel Studio builds websites for cafes, restaurants and businesses in vadodara,Gujarat.">
-
-    <title>Pratham Patel Studio | Website Developer</title>
+    <title>Pratham Patel Studio | Premium Web Design | Local Business Growth</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -23,14 +21,14 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: #121212;
             color: #f5f5f5;
             overflow-x: hidden;
         }
-        
+
         .glass-card {
             background: rgba(30, 30, 30, 0.7);
             backdrop-filter: blur(12px);
@@ -38,116 +36,379 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
-        
+
         .animate-fade-in {
             animation: fadeIn 1s ease-out;
         }
-        
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
+
         .lift-hover:hover {
             transform: translateY(-10px);
             transition: all 0.3s ease;
         }
-        
+
         .hero-gradient {
             background: linear-gradient(135deg, rgba(245, 183, 0, 0.1) 0%, rgba(18, 18, 18, 0) 50%);
         }
-        
+
         .floating {
             animation: floating 3s ease-in-out infinite;
         }
-        
+
         @keyframes floating {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-15px); }
             100% { transform: translateY(0px); }
         }
-        
+
         .scroll-reveal {
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.6s ease, transform 0.6s ease;
         }
-        
+
         .scroll-reveal.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        
+
         .pricing-card {
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
         }
-        
+
         .pricing-card:hover {
             transform: translateY(-15px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
-        
+
         .pricing-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 2px;
             background: linear-gradient(90deg, transparent, #F5B700, transparent);
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.5s ease;
         }
-        
+
         .pricing-card:hover::before {
             transform: scaleX(1);
         }
-        
-  .popular-badge {
-    position: absolute;
-    top: 18px;
-    right: -45px;
-    background: #F5B700;
-    color: #121212;
-    padding: 10px 50px;
-    font-weight: bold;
-    font-size: 0.75rem;
-    transform: rotate(45deg);
-    box-shadow: 0 4px 10px rgba(245, 183, 0, 0.3);
-    white-space: nowrap;
-}
-        
-        .feature-item {
-            transition: all 0.3s ease;
+
+        .popular-badge {
+            position: absolute;
+            top: 18px;
+            right: -45px;
+            background: #F5B700;
+            color: #121212;
+            padding: 10px 50px;
+            font-weight: bold;
+            font-size: 0.75rem;
+            transform: rotate(45deg);
+            box-shadow: 0 4px 10px rgba(245, 183, 0, 0.3);
+            white-space: nowrap;
         }
-        
-        .feature-item:hover {
-            transform: translateX(5px);
+
+        .feature-item { transition: all 0.3s ease; }
+        .feature-item:hover { transform: translateX(5px); }
+        .price-tag { transition: all 0.3s ease; }
+        .pricing-card:hover .price-tag { transform: scale(1.05); }
+
+        /* ── ADMIN OVERLAY ── */
+        #adminOverlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 9999;
+            overflow-y: auto;
         }
-        
-        .price-tag {
-            transition: all 0.3s ease;
+
+        #adminOverlay.active { display: flex; align-items: flex-start; justify-content: center; padding: 40px 16px; }
+
+        .admin-panel {
+            background: #1a1a1a;
+            border: 1px solid rgba(245,183,0,0.3);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 860px;
+            padding: 40px;
+            box-shadow: 0 0 60px rgba(245,183,0,0.15);
         }
-        
-        .pricing-card:hover .price-tag {
-            transform: scale(1.05);
+
+        .admin-panel h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #F5B700;
+            margin-bottom: 8px;
+        }
+
+        .admin-input {
+            width: 100%;
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 12px 16px;
+            color: #f5f5f5;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+        }
+
+        .admin-input:focus {
+            outline: none;
+            border-color: #F5B700;
+        }
+
+        .admin-btn {
+            background: #F5B700;
+            color: #121212;
+            font-weight: 700;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 28px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .admin-btn:hover { background: #e0a800; transform: translateY(-2px); }
+
+        .admin-btn-danger {
+            background: transparent;
+            color: #ff4d4d;
+            border: 1px solid #ff4d4d;
+            border-radius: 8px;
+            padding: 6px 14px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .admin-btn-danger:hover { background: #ff4d4d; color: #fff; }
+
+        .project-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #111;
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+        }
+
+        .project-row-thumb {
+            width: 56px;
+            height: 56px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: #222;
+            flex-shrink: 0;
+        }
+
+        .project-row-info { flex: 1; min-width: 0; }
+        .project-row-info strong { display: block; color: #f5f5f5; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .project-row-info span { font-size: 0.78rem; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
+
+        /* ── LOGIN MODAL ── */
+        #loginModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #loginModal.active { display: flex; }
+
+        .login-box {
+            background: #1a1a1a;
+            border: 1px solid rgba(245,183,0,0.4);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 0 60px rgba(245,183,0,0.2);
+            text-align: center;
+        }
+
+        .login-box h3 { font-size: 1.4rem; font-weight: 700; color: #F5B700; margin-bottom: 6px; }
+        .login-box p { color: #888; font-size: 0.9rem; margin-bottom: 28px; }
+
+        #loginError {
+            color: #ff4d4d;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* ── ADMIN TRIGGER BUTTON (hidden in bottom-left) ── */
+        #adminTrigger {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            background: rgba(245,183,0,0.12);
+            border: 1px solid rgba(245,183,0,0.25);
+            color: #F5B700;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+
+        #adminTrigger:hover {
+            background: rgba(245,183,0,0.25);
+            transform: scale(1.1);
+        }
+
+        /* Notification toast */
+        #toast {
+            position: fixed;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #F5B700;
+            color: #121212;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            z-index: 99999;
+            opacity: 0;
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+
+        #toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
         }
     </style>
 </head>
 <body class="bg-dark">
-    <!-- Sticky Navbar -->
+
+    <!-- ══════════════════════════════════════════
+         ADMIN LOGIN MODAL
+    ══════════════════════════════════════════ -->
+    <div id="loginModal">
+        <div class="login-box">
+            <div style="font-size:2.5rem; color:#F5B700; margin-bottom:16px;">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h3>Admin Access</h3>
+            <p>Enter your password to manage the portfolio</p>
+            <input type="password" id="passwordInput" class="admin-input" placeholder="Enter password" style="text-align:center; letter-spacing:4px; margin-bottom:0;"
+                onkeydown="if(event.key==='Enter') checkPassword()">
+            <div id="loginError">Incorrect password. Please try again.</div>
+            <div style="margin-top:20px; display:flex; gap:12px;">
+                <button class="admin-btn" style="flex:1;" onclick="checkPassword()">
+                    <i class="fas fa-unlock mr-2"></i>Unlock
+                </button>
+                <button onclick="closeLogin()" style="flex:1; background:transparent; border:1px solid #333; color:#888; border-radius:10px; padding:12px; cursor:pointer; transition:all 0.2s;"
+                    onmouseover="this.style.borderColor='#555'" onmouseout="this.style.borderColor='#333'">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         ADMIN PANEL OVERLAY
+    ══════════════════════════════════════════ -->
+    <div id="adminOverlay">
+        <div class="admin-panel">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+                <h2><i class="fas fa-briefcase mr-2"></i>Portfolio Manager</h2>
+                <button onclick="closeAdmin()" style="background:transparent; border:1px solid #333; color:#aaa; border-radius:8px; padding:8px 16px; cursor:pointer; font-size:0.85rem; transition:all 0.2s;"
+                    onmouseover="this.style.borderColor='#F5B700'; this.style.color='#F5B700'"
+                    onmouseout="this.style.borderColor='#333'; this.style.color='#aaa'">
+                    <i class="fas fa-times mr-1"></i> Close
+                </button>
+            </div>
+            <p style="color:#666; font-size:0.88rem; margin-bottom:32px;">Add, manage, and remove projects from your public portfolio section.</p>
+
+            <!-- ADD NEW PROJECT FORM -->
+            <div style="background:#111; border:1px solid #2a2a2a; border-radius:14px; padding:24px; margin-bottom:32px;">
+                <h3 style="font-size:1rem; font-weight:600; color:#F5B700; margin-bottom:20px;">
+                    <i class="fas fa-plus-circle mr-2"></i>Add New Project
+                </h3>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+                    <div>
+                        <label style="display:block; font-size:0.82rem; color:#aaa; margin-bottom:6px;">Project Title *</label>
+                        <input type="text" id="newTitle" class="admin-input" placeholder="e.g. Bakery Website Demo">
+                    </div>
+                    <div>
+                        <label style="display:block; font-size:0.82rem; color:#aaa; margin-bottom:6px;">Category Label *</label>
+                        <input type="text" id="newCategory" class="admin-input" placeholder="e.g. Bakery">
+                    </div>
+                </div>
+                <div style="margin-bottom:16px;">
+                    <label style="display:block; font-size:0.82rem; color:#aaa; margin-bottom:6px;">Short Description *</label>
+                    <input type="text" id="newDesc" class="admin-input" placeholder="e.g. Modern bakery site with online ordering and gallery">
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px;">
+                    <div>
+                        <label style="display:block; font-size:0.82rem; color:#aaa; margin-bottom:6px;">Project Link *</label>
+                        <input type="text" id="newLink" class="admin-input" placeholder="e.g. Bakery.html or https://...">
+                    </div>
+                    <div>
+                        <label style="display:block; font-size:0.82rem; color:#aaa; margin-bottom:6px;">Image Path / URL</label>
+                        <input type="text" id="newImage" class="admin-input" placeholder="e.g. images/bakery.jpg (optional)">
+                    </div>
+                </div>
+                <button class="admin-btn" onclick="addProject()">
+                    <i class="fas fa-plus mr-2"></i>Add to Portfolio
+                </button>
+            </div>
+
+            <!-- EXISTING PROJECTS LIST -->
+            <div>
+                <h3 style="font-size:1rem; font-weight:600; color:#aaa; margin-bottom:16px;">
+                    <i class="fas fa-layer-group mr-2"></i>Current Projects
+                    <span id="projectCount" style="font-size:0.8rem; color:#555; margin-left:8px;"></span>
+                </h3>
+                <div id="adminProjectList"></div>
+            </div>
+
+            <!-- SAVE BUTTON -->
+            <div style="margin-top:28px; display:flex; align-items:center; gap:16px;">
+                <button class="admin-btn" onclick="saveAndApply()" style="padding:14px 40px; font-size:1rem;">
+                    <i class="fas fa-save mr-2"></i>Save & Apply Changes
+                </button>
+                <span style="color:#555; font-size:0.82rem;">Changes are saved in your browser automatically.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast"></div>
+
+    <!-- ══════════════════════════════════════════
+         STICKY NAVBAR
+    ══════════════════════════════════════════ -->
     <nav class="fixed w-full z-50 bg-black/30 backdrop-blur-lg border-b border-gray-800">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-2">
-               <div class="w-10 h-10 rounded-full overflow-hidden">
-    <img src="images/StudioLogo.png" alt="Pratham Patel Studio Logo" class="w-full h-full object-cover">
-</div>
+                <div class="w-10 h-10 rounded-full overflow-hidden">
+                    <img src="images\StudioLogo.png" alt="Pratham Patel Studio Logo" class="w-full h-full object-cover">
+                </div>
                 <span class="text-xl font-bold">PRATHAM PATEL STUDIO</span>
             </div>
-            
             <div class="hidden md:flex space-x-8">
                 <button onclick="scrollToSection('services')" class="hover:text-primary transition-colors">Services</button>
                 <button onclick="scrollToSection('portfolio')" class="hover:text-primary transition-colors">Portfolio</button>
@@ -157,13 +418,14 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- ══════════════════════════════════════════
+         HERO SECTION
+    ══════════════════════════════════════════ -->
     <section class="pt-32 pb-20 hero-gradient relative overflow-hidden">
         <div class="absolute inset-0 z-0">
             <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
             <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
         </div>
-        
         <div class="container mx-auto px-4 relative z-10">
             <div class="max-w-3xl mx-auto text-center animate-fade-in">
                 <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
@@ -172,43 +434,33 @@
                 <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
                     Transform your restaurant, café or shop into a digital powerhouse that drives customers and revenue
                 </p>
-                
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
                     <button onclick="scrollToSection('contact')" class="bg-primary text-dark px-8 py-4 rounded-full font-bold text-lg hover:bg-yellow-500 transition-all duration-300 transform hover:scale-105">
-                          Start Your Project
-					</button>
+                        Start Your Project
+                    </button>
                     <a href="https://wa.me/918849234066" target="_blank"
-   class="border-2 border-primary text-primary px-8 py-4 rounded-full font-bold text-lg hover:bg-primary hover:text-dark transition-all duration-300 inline-block text-center">
-    Chat on WhatsApp
-</a>
+                        class="border-2 border-primary text-primary px-8 py-4 rounded-full font-bold text-lg hover:bg-primary hover:text-dark transition-all duration-300 inline-block text-center">
+                        Chat on WhatsApp
+                    </a>
                 </div>
-                
                 <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
                     <div class="glass-card p-6 rounded-xl">
-                        <div class="text-3xl mb-2 text-primary">
-                            <i class="fas fa-users"></i>
-                        </div>
+                        <div class="text-3xl mb-2 text-primary"><i class="fas fa-users"></i></div>
                         <h3 class="font-semibold">More Customers</h3>
                         <p class="text-sm text-gray-400 mt-1">Increase visitor traffic</p>
                     </div>
                     <div class="glass-card p-6 rounded-xl">
-                        <div class="text-3xl mb-2 text-primary">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
+                        <div class="text-3xl mb-2 text-primary"><i class="fas fa-shopping-cart"></i></div>
                         <h3 class="font-semibold">Higher Orders</h3>
                         <p class="text-sm text-gray-400 mt-1">Boost revenue conversion</p>
                     </div>
                     <div class="glass-card p-6 rounded-xl">
-                        <div class="text-3xl mb-2 text-primary">
-                            <i class="fas fa-star"></i>
-                        </div>
+                        <div class="text-3xl mb-2 text-primary"><i class="fas fa-star"></i></div>
                         <h3 class="font-semibold">Premium Look</h3>
                         <p class="text-sm text-gray-400 mt-1">Professional appearance</p>
                     </div>
                     <div class="glass-card p-6 rounded-xl">
-                        <div class="text-3xl mb-2 text-primary">
-                            <i class="fas fa-bolt"></i>
-                        </div>
+                        <div class="text-3xl mb-2 text-primary"><i class="fas fa-bolt"></i></div>
                         <h3 class="font-semibold">Fast Delivery</h3>
                         <p class="text-sm text-gray-400 mt-1">3-5 days turnaround</p>
                     </div>
@@ -217,287 +469,128 @@
         </div>
     </section>
 
-    <!-- Services Section -->
+    <!-- ══════════════════════════════════════════
+         SERVICES SECTION
+    ══════════════════════════════════════════ -->
     <section id="services" class="py-20 scroll-reveal">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Services That Drive Results</h2>
-                <p class="text-gray-400 max-w-2xl mx-auto">
-                    Specialized web design solutions tailored for local businesses looking to expand their customer base
-                </p>
+                <p class="text-gray-400 max-w-2xl mx-auto">Specialized web design solutions tailored for local businesses looking to expand their customer base</p>
             </div>
-            
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Restaurant Websites -->
+                <!-- Restaurant -->
                 <div class="glass-card p-8 rounded-2xl lift-hover">
-                    <div class="text-4xl mb-6 text-primary">
-                        <i class="fas fa-utensils"></i>
-                    </div>
+                    <div class="text-4xl mb-6 text-primary"><i class="fas fa-utensils"></i></div>
                     <h3 class="text-xl font-bold mb-4">Restaurant Websites</h3>
-                    <p class="text-gray-300 mb-6">
-                        Modern online presence that attracts diners and increases reservations
-                    </p>
-                  <ul class="space-y-2 mb-6">
-    <li class="flex items-center">
-        <i class="fas fa-check-circle text-primary mr-2"></i>
-        High-Converting Table Booking Funnel
-    </li>
-    <li class="flex items-center">
-        <i class="fas fa-check-circle text-primary mr-2"></i>
-        WhatsApp Instant Reservation
-    </li>
-    <li class="flex items-center">
-        <i class="fas fa-check-circle text-primary mr-2"></i>
-        Menu Display That Increases Orders
-    </li>
-    <li class="flex items-center">
-        <i class="fas fa-check-circle text-primary mr-2"></i>
-        Get Orders on WhatsApp
-    </li>
-    <li class="flex items-center">
-        <i class="fas fa-check-circle text-primary mr-2"></i>
-        SEO Setup (Rank on Google)
-    </li>
-</ul>
-                    <button class="text-primary font-semibold hover:text-yellow-400 transition-colors">
-                        Learn More →
-                    </button>
-                </div>
-                
-                <!-- Café Websites -->
-                <div class="glass-card p-8 rounded-2xl lift-hover">
-                    <div class="text-4xl mb-6 text-primary">
-                        <i class="fas fa-mug-hot"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">Café Websites</h3>
-                    <p class="text-gray-300 mb-6">
-                        Create the perfect digital experience for coffee lovers and casual visitors
-                    </p>
-                   <ul class="space-y-2 mb-6">
-    <li class="flex items-center">
-        <i class="fas fa-check-circle text-primary mr-2"></i>
-        Attractive Menu Display (Drinks & Specials)
-    </li>
-    <li class="flex items-center">
-        <i class="fas fa-check-circle text-primary mr-2"></i>
-        Instagram-Style Gallery (Boost Footfall)
-    </li>
-    <li class="flex items-center">
-        <i class="fas fa-check-circle text-primary mr-2"></i>
-        Event & Live Music Highlights
-    </li>
-    <li class="flex items-center">
-        <i class="fas fa-check-circle text-primary mr-2"></i>
-        WhatsApp Booking & Queries
-    </li>
-    <li class="flex items-center">
-        <i class="fas fa-check-circle text-primary mr-2"></i>
-        Mobile-First Premium Design
-    </li>
-</ul>
-                    <button class="text-primary font-semibold hover:text-yellow-400 transition-colors">
-                        Learn More →
-                    </button>
-                </div>
-                
-                <!-- Sweet Shop Websites -->
-                <div class="glass-card p-8 rounded-2xl lift-hover">
-                    <div class="text-4xl mb-6 text-primary">
-                        <i class="fas fa-cookie"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">Sweet Shop Websites</h3>
-                    <p class="text-gray-300 mb-6">
-                        Beautiful online storefronts that showcase delicious treats and drive sales
-                    </p>
-                  <ul class="space-y-2 mb-6">
-    <li class="flex items-center">
-        <i class="fas fa-check-circle text-primary mr-2"></i>
-        Traditional & Premium Sweets Showcase
-    </li>
-    <li class="flex items-center">
-        <i class="fas fa-check-circle text-primary mr-2"></i>
-        Festival Specials & Gift Box Highlights
-    </li>
-    <li class="flex items-center">
-        <i class="fas fa-check-circle text-primary mr-2"></i>
-        Attractive Product Gallery (Boost Walk-ins)
-    </li>
-    <li class="flex items-center">
-        <i class="fas fa-check-circle text-primary mr-2"></i>
-        Easy WhatsApp Ordering System
-    </li>
-    <li class="flex items-center">
-        <i class="fas fa-check-circle text-primary mr-2"></i>
-        Elegant Traditional + Modern Design
-    </li>
-</ul>
-                    <button class="text-primary font-semibold hover:text-yellow-400 transition-colors">
-                        Learn More →
-                    </button>
-                </div>
-                
-                <!-- Business Landing Pages -->
-                <div class="glass-card p-8 rounded-2xl lift-hover">
-                    <div class="text-4xl mb-6 text-primary">
-                        <i class="fas fa-store"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">Business Landing Pages</h3>
-                    <p class="text-gray-300 mb-6">
-                        High-converting landing pages designed to boost conversions and capture leads
-                    </p>
+                    <p class="text-gray-300 mb-6">Modern online presence that attracts diners and increases reservations</p>
                     <ul class="space-y-2 mb-6">
-    <li class="flex items-center">
-        <i class="fas fa-check-circle text-primary mr-2"></i>
-        High-Converting Landing Page Design
-    </li>
-    <li class="flex items-center">
-        <i class="fas fa-check-circle text-primary mr-2"></i>
-        Clear Service & Offer Presentation
-    </li>
-    <li class="flex items-center">
-        <i class="fas fa-check-circle text-primary mr-2"></i>
-        Lead Capture (Forms / WhatsApp Integration)
-    </li>
-    <li class="flex items-center">
-        <i class="fas fa-check-circle text-primary mr-2"></i>
-        Fast Loading & Mobile Optimized
-    </li>
-    <li class="flex items-center">
-        <i class="fas fa-check-circle text-primary mr-2"></i>
-        Trust-Building Sections (Reviews, Proof, CTA)
-    </li>
-</ul>
-                    <button class="text-primary font-semibold hover:text-yellow-400 transition-colors">
-                        Learn More →
-                    </button>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i>High-Converting Table Booking Funnel</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i>WhatsApp Instant Reservation</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i>Menu Display That Increases Orders</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i>Get Orders on WhatsApp</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i>SEO Setup (Rank on Google)</li>
+                    </ul>
+                    <button class="text-primary font-semibold hover:text-yellow-400 transition-colors">Learn More →</button>
+                </div>
+                <!-- Café -->
+                <div class="glass-card p-8 rounded-2xl lift-hover">
+                    <div class="text-4xl mb-6 text-primary"><i class="fas fa-mug-hot"></i></div>
+                    <h3 class="text-xl font-bold mb-4">Café Websites</h3>
+                    <p class="text-gray-300 mb-6">Create the perfect digital experience for coffee lovers and casual visitors</p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i>Attractive Menu Display (Drinks & Specials)</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i>Instagram-Style Gallery (Boost Footfall)</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i>Event & Live Music Highlights</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i>WhatsApp Booking & Queries</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i>Mobile-First Premium Design</li>
+                    </ul>
+                    <button class="text-primary font-semibold hover:text-yellow-400 transition-colors">Learn More →</button>
+                </div>
+                <!-- Sweet Shop -->
+                <div class="glass-card p-8 rounded-2xl lift-hover">
+                    <div class="text-4xl mb-6 text-primary"><i class="fas fa-cookie"></i></div>
+                    <h3 class="text-xl font-bold mb-4">Sweet Shop Websites</h3>
+                    <p class="text-gray-300 mb-6">Beautiful online storefronts that showcase delicious treats and drive sales</p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i>Traditional & Premium Sweets Showcase</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i>Festival Specials & Gift Box Highlights</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i>Attractive Product Gallery (Boost Walk-ins)</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i>Easy WhatsApp Ordering System</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i>Elegant Traditional + Modern Design</li>
+                    </ul>
+                    <button class="text-primary font-semibold hover:text-yellow-400 transition-colors">Learn More →</button>
+                </div>
+                <!-- Landing Pages -->
+                <div class="glass-card p-8 rounded-2xl lift-hover">
+                    <div class="text-4xl mb-6 text-primary"><i class="fas fa-store"></i></div>
+                    <h3 class="text-xl font-bold mb-4">Business Landing Pages</h3>
+                    <p class="text-gray-300 mb-6">High-converting landing pages designed to boost conversions and capture leads</p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i>High-Converting Landing Page Design</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i>Clear Service & Offer Presentation</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i>Lead Capture (Forms / WhatsApp Integration)</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i>Fast Loading & Mobile Optimized</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i>Trust-Building Sections (Reviews, Proof, CTA)</li>
+                    </ul>
+                    <button class="text-primary font-semibold hover:text-yellow-400 transition-colors">Learn More →</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Target Audience Section -->
+    <!-- ══════════════════════════════════════════
+         TARGET AUDIENCE SECTION
+    ══════════════════════════════════════════ -->
     <section class="py-20 bg-charcoal">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Perfect for:</h2>
-                <p class="text-gray-400 max-w-2xl mx-auto">
-                    Trusted by local businesses seeking professional online growth strategies
-                </p>
+                <p class="text-gray-400 max-w-2xl mx-auto">Trusted by local businesses seeking professional online growth strategies</p>
             </div>
-            
             <div class="grid grid-cols-2 md:grid-cols-5 gap-8 max-w-4xl mx-auto">
                 <div class="flex flex-col items-center text-center glass-card p-6 rounded-2xl">
-                    <div class="text-3xl mb-4 text-primary">
-                        <i class="fas fa-utensils"></i>
-                    </div>
+                    <div class="text-3xl mb-4 text-primary"><i class="fas fa-utensils"></i></div>
                     <h3 class="font-semibold">Restaurants</h3>
                 </div>
-                
                 <div class="flex flex-col items-center text-center glass-card p-6 rounded-2xl">
-                    <div class="text-3xl mb-4 text-primary">
-                        <i class="fas fa-mug-hot"></i>
-                    </div>
+                    <div class="text-3xl mb-4 text-primary"><i class="fas fa-mug-hot"></i></div>
                     <h3 class="font-semibold">Cafés</h3>
                 </div>
-                
                 <div class="flex flex-col items-center text-center glass-card p-6 rounded-2xl">
-                    <div class="text-3xl mb-4 text-primary">
-                        <i class="fas fa-cookie"></i>
-                    </div>
+                    <div class="text-3xl mb-4 text-primary"><i class="fas fa-cookie"></i></div>
                     <h3 class="font-semibold">Sweet Shops</h3>
                 </div>
-                
                 <div class="flex flex-col items-center text-center glass-card p-6 rounded-2xl">
-                    <div class="text-3xl mb-4 text-primary">
-                        <i class="fas fa-store"></i>
-                    </div>
+                    <div class="text-3xl mb-4 text-primary"><i class="fas fa-store"></i></div>
                     <h3 class="font-semibold">Local Retail</h3>
                 </div>
-                
                 <div class="flex flex-col items-center text-center glass-card p-6 rounded-2xl">
-                    <div class="text-3xl mb-4 text-primary">
-                        <i class="fas fa-gem"></i>
-                    </div>
+                    <div class="text-3xl mb-4 text-primary"><i class="fas fa-gem"></i></div>
                     <h3 class="font-semibold">Businesses</h3>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Portfolio Section -->
+    <!-- ══════════════════════════════════════════
+         PORTFOLIO SECTION
+    ══════════════════════════════════════════ -->
     <section id="portfolio" class="py-20 scroll-reveal">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Portfolio Demos</h2>
-                <p class="text-gray-400 max-w-2xl mx-auto">
-                    Real examples of how we've helped local businesses increase their customer base
-                </p>
+                <p class="text-gray-400 max-w-2xl mx-auto">Real examples of how we've helped local businesses increase their customer base</p>
             </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Restaurant Demo -->
-				<a href="Restaurant.html" target="_blank" class="block">
-                <div class="glass-card rounded-2xl overflow-hidden lift-hover">
-                    <div class="h-48 bg-gradient-to-r from-amber-900 to-yellow-900 flex items-center justify-center">
-                        <div class="h-48 overflow-hidden">
-							<img src="images/restaurant.jpg" alt="Restaurant Demo"class="w-full h-full object-cover">
-						</div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">Restaurant Website Demo</h3>
-                        <p class="text-gray-400 mb-4">Modern interface with online ordering system and reservation booking</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs bg-primary/20 text-primary px-3 py-1 rounded-full">Restaurant</span>
-                            <button class="text-primary hover:text-yellow-400 transition-colors">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                </a>
-                <!-- Café Demo -->
-				<a href="Cafe.html" target="_blank" class="block">
-                <div class="glass-card rounded-2xl overflow-hidden lift-hover">
-                    <div class="h-48 bg-gradient-to-r from-green-900 to-emerald-900 flex items-center justify-center">
-                        <div class="h-48 overflow-hidden">
-							<img src="images/cafe.jpg" alt="Cafe Demo"class="w-full h-full object-cover">
-						</div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">Café Website Demo</h3>
-                        <p class="text-gray-400 mb-4">Attractive layout with menu display and event calendar integration</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs bg-primary/20 text-primary px-3 py-1 rounded-full">Café</span>
-                            <button class="text-primary hover:text-yellow-400 transition-colors">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                </a>
-                <!-- Sweet Shop Demo -->
-				<a href="sweetshop.html" target="_blank" class="block">
-                <div class="glass-card rounded-2xl overflow-hidden lift-hover">
-                   <div class="h-48 overflow-hidden">
-						<img src="images/sweetshop.jpg" alt="Sweet Shop Demo"class="w-full h-full object-cover">
-					</div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">Sweet Shop Website Demo</h3>
-                        <p class="text-gray-400 mb-4">Beautiful product showcase with online ordering capability</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs bg-primary/20 text-primary px-3 py-1 rounded-full">Sweet Shop</span>
-                            <button class="text-primary hover:text-yellow-400 transition-colors">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-				</a>
+            <div id="portfolioGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Dynamically rendered by JS -->
             </div>
         </div>
     </section>
 
-    <!-- Value Proposition Section -->
+    <!-- ══════════════════════════════════════════
+         VALUE PROPOSITION SECTION
+    ══════════════════════════════════════════ -->
     <section class="py-20 bg-charcoal">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto text-center">
@@ -510,290 +603,161 @@
                 <p class="text-xl text-gray-300 mb-10">
                     Every element is strategically crafted to convert visitors into paying customers
                 </p>
-                
                 <div class="grid md:grid-cols-3 gap-8 mt-16">
                     <div class="glass-card p-8 rounded-2xl">
-                        <div class="text-4xl mb-6 text-primary">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
+                        <div class="text-4xl mb-6 text-primary"><i class="fas fa-chart-line"></i></div>
                         <h3 class="text-xl font-bold mb-4">Results Focused</h3>
-                        <p class="text-gray-400">
-                            Designed specifically to increase your revenue and attract more customers
-                        </p>
+                        <p class="text-gray-400">Designed specifically to increase your revenue and attract more customers</p>
                     </div>
-                    
                     <div class="glass-card p-8 rounded-2xl">
-                        <div class="text-4xl mb-6 text-primary">
-                            <i class="fas fa-lightbulb"></i>
-                        </div>
+                        <div class="text-4xl mb-6 text-primary"><i class="fas fa-lightbulb"></i></div>
                         <h3 class="text-xl font-bold mb-4">Smart Solutions</h3>
-                        <p class="text-gray-400">
-                            Innovative approaches that solve real business challenges
-                        </p>
+                        <p class="text-gray-400">Innovative approaches that solve real business challenges</p>
                     </div>
-                    
                     <div class="glass-card p-8 rounded-2xl">
-                        <div class="text-4xl mb-6 text-primary">
-                            <i class="fas fa-handshake"></i>
-                        </div>
+                        <div class="text-4xl mb-6 text-primary"><i class="fas fa-handshake"></i></div>
                         <h3 class="text-xl font-bold mb-4">Trusted Experts</h3>
-                        <p class="text-gray-400">
-                            Professional service backed by proven success stories
-                        </p>
+                        <p class="text-gray-400">Professional service backed by proven success stories</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
+    <!-- ══════════════════════════════════════════
+         TESTIMONIALS SECTION
+    ══════════════════════════════════════════ -->
     <section class="py-20">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">What Our Clients Say</h2>
-                <p class="text-gray-400 max-w-2xl mx-auto">
-                    Real feedback from local business owners who saw measurable results
-                </p>
+                <p class="text-gray-400 max-w-2xl mx-auto">Real feedback from local business owners who saw measurable results</p>
             </div>
-            
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="glass-card p-8 rounded-2xl">
                     <div class="flex items-center mb-6">
-                        <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary mr-4">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold">Amit Patel</h4>
-                            <p class="text-sm text-gray-400">Owner,Spice & Savor</p>
-                        </div>
+                        <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary mr-4"><i class="fas fa-user"></i></div>
+                        <div><h4 class="font-bold">Amit Patel</h4><p class="text-sm text-gray-400">Owner, Spice & Savor</p></div>
                     </div>
-                    <p class="text-gray-300 italic mb-6">
-                        "Our customer footfall increased by 150% after launching our new website. The design was exactly what we needed to showcase our menu and attract new customers."
-                    </p>
+                    <p class="text-gray-300 italic mb-6">"Our customer footfall increased by 150% after launching our new website. The design was exactly what we needed to showcase our menu and attract new customers."</p>
                     <div class="flex text-yellow-400">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
                 </div>
-                
                 <div class="glass-card p-8 rounded-2xl">
                     <div class="flex items-center mb-6">
-                        <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary mr-4">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold">Rohan Mehta</h4>
-                            <p class="text-sm text-gray-400">Founder, Brew & Bloom Café</p>
-                        </div>
+                        <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary mr-4"><i class="fas fa-user"></i></div>
+                        <div><h4 class="font-bold">Rohan Mehta</h4><p class="text-sm text-gray-400">Founder, Brew & Bloom Café</p></div>
                     </div>
-                    <p class="text-gray-300 italic mb-6">
-                        "The website perfectly captured our café's vibe while making it easy for customers to find us and order online. We've seen significant growth since launch!"
-                    </p>
+                    <p class="text-gray-300 italic mb-6">"The website perfectly captured our café's vibe while making it easy for customers to find us and order online. We've seen significant growth since launch!"</p>
                     <div class="flex text-yellow-400">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
                 </div>
-                
                 <div class="glass-card p-8 rounded-2xl">
                     <div class="flex items-center mb-6">
-                        <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary mr-4">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold">Priya Sharma</h4>
-                            <p class="text-sm text-gray-400">Manager, Shree Krishna Sweets & Farshan</p>
-                        </div>
+                        <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary mr-4"><i class="fas fa-user"></i></div>
+                        <div><h4 class="font-bold">Priya Sharma</h4><p class="text-sm text-gray-400">Manager, Shree Krishna Sweets & Farshan</p></div>
                     </div>
-                    <p class="text-gray-300 italic mb-6">
-                        "Our store visits doubled within the first month! The website is beautiful and functional, exactly what our sweet shop needed to reach more customers."
-                    </p>
+                    <p class="text-gray-300 italic mb-6">"Our store visits doubled within the first month! The website is beautiful and functional, exactly what our sweet shop needed to reach more customers."</p>
                     <div class="flex text-yellow-400">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pricing Section -->
+    <!-- ══════════════════════════════════════════
+         PRICING SECTION
+    ══════════════════════════════════════════ -->
     <section id="pricing" class="py-20 bg-charcoal">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Premium Web Solutions</h2>
-                <p class="text-gray-400 max-w-2xl mx-auto">
-                    Professional web design packages tailored for local businesses
-                </p>
+                <p class="text-gray-400 max-w-2xl mx-auto">Professional web design packages tailored for local businesses</p>
             </div>
-            
             <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <!-- Basic Launch Plan -->
+                <!-- Basic -->
                 <div class="pricing-card glass-card p-8 rounded-2xl">
                     <h3 class="text-xl font-bold mb-4 text-gray-300">Basic Launch</h3>
-                    <div class="mb-6 price-tag">
-                        <span class="text-3xl font-bold text-primary">₹7,999</span>
-                    </div>
+                    <div class="mb-6 price-tag"><span class="text-3xl font-bold text-primary">₹7,999</span></div>
                     <p class="text-gray-400 mb-6 text-sm">Best for: Small businesses starting online</p>
                     <ul class="space-y-4 mb-8">
-                        <li class="flex items-start feature-item">
-                            <i class="fas fa-check-circle text-primary mt-1 mr-2"></i>
-                            <span>Landing Page</span>
-                        </li>
-                        <li class="flex items-start feature-item">
-                            <i class="fas fa-check-circle text-primary mt-1 mr-2"></i>
-                            <span>Mobile Responsive Design</span>
-                        </li>
-                        <li class="flex items-start feature-item">
-                            <i class="fas fa-check-circle text-primary mt-1 mr-2"></i>
-                            <span>WhatsApp Integration</span>
-                        </li>
-                        <li class="flex items-start feature-item">
-                            <i class="fas fa-check-circle text-primary mt-1 mr-2"></i>
-                            <span>Contact Form</span>
-                        </li>
-                        <li class="flex items-start feature-item">
-                            <i class="fas fa-check-circle text-primary mt-1 mr-2"></i>
-                            <span>Basic UI</span>
-                        </li>
+                        <li class="flex items-start feature-item"><i class="fas fa-check-circle text-primary mt-1 mr-2"></i><span>Landing Page</span></li>
+                        <li class="flex items-start feature-item"><i class="fas fa-check-circle text-primary mt-1 mr-2"></i><span>Mobile Responsive Design</span></li>
+                        <li class="flex items-start feature-item"><i class="fas fa-check-circle text-primary mt-1 mr-2"></i><span>WhatsApp Integration</span></li>
+                        <li class="flex items-start feature-item"><i class="fas fa-check-circle text-primary mt-1 mr-2"></i><span>Contact Form</span></li>
+                        <li class="flex items-start feature-item"><i class="fas fa-check-circle text-primary mt-1 mr-2"></i><span>Basic UI</span></li>
                     </ul>
-                    <button class="w-full border-2 border-gray-700 text-gray-300 py-3 rounded-full hover:border-primary hover:text-primary transition-colors">
-                        Get Started
-                    </button>
+                    <button class="w-full border-2 border-gray-700 text-gray-300 py-3 rounded-full hover:border-primary hover:text-primary transition-colors">Get Started</button>
                 </div>
-                
-                <!-- Growth Plan (Most Popular) -->
+                <!-- Growth -->
                 <div class="pricing-card glass-card p-8 rounded-2xl border-2 border-primary relative">
                     <div class="popular-badge">MOST POPULAR</div>
                     <h3 class="text-xl font-bold mb-4 text-primary">Growth Plan</h3>
-                    <div class="mb-6 price-tag">
-                        <span class="text-3xl font-bold text-primary">₹14,999</span>
-                    </div>
+                    <div class="mb-6 price-tag"><span class="text-3xl font-bold text-primary">₹14,999</span></div>
                     <p class="text-gray-400 mb-6 text-sm">Premium features for growing businesses</p>
                     <ul class="space-y-4 mb-8">
-                        <li class="flex items-start feature-item">
-                            <i class="fas fa-check-circle text-primary mt-1 mr-2"></i>
-                            <span>Premium Landing Page Design</span>
-                        </li>
-                        <li class="flex items-start feature-item">
-                            <i class="fas fa-check-circle text-primary mt-1 mr-2"></i>
-                            <span>Conversion-focused layout</span>
-                        </li>
-                        <li class="flex items-start feature-item">
-                            <i class="fas fa-check-circle text-primary mt-1 mr-2"></i>
-                            <span>Menu / Services Section</span>
-                        </li>
-                        <li class="flex items-start feature-item">
-                            <i class="fas fa-check-circle text-primary mt-1 mr-2"></i>
-                            <span>WhatsApp + Call buttons</span>
-                        </li>
-                        <li class="flex items-start feature-item">
-                            <i class="fas fa-check-circle text-primary mt-1 mr-2"></i>
-                            <span>Basic SEO setup</span>
-                        </li>
-                        <li class="flex items-start feature-item">
-                            <i class="fas fa-check-circle text-primary mt-1 mr-2"></i>
-                            <span>Faster loading + animations</span>
-                        </li>
+                        <li class="flex items-start feature-item"><i class="fas fa-check-circle text-primary mt-1 mr-2"></i><span>Premium Landing Page Design</span></li>
+                        <li class="flex items-start feature-item"><i class="fas fa-check-circle text-primary mt-1 mr-2"></i><span>Conversion-focused layout</span></li>
+                        <li class="flex items-start feature-item"><i class="fas fa-check-circle text-primary mt-1 mr-2"></i><span>Menu / Services Section</span></li>
+                        <li class="flex items-start feature-item"><i class="fas fa-check-circle text-primary mt-1 mr-2"></i><span>WhatsApp + Call buttons</span></li>
+                        <li class="flex items-start feature-item"><i class="fas fa-check-circle text-primary mt-1 mr-2"></i><span>Basic SEO setup</span></li>
+                        <li class="flex items-start feature-item"><i class="fas fa-check-circle text-primary mt-1 mr-2"></i><span>Faster loading + animations</span></li>
                     </ul>
-                    <button class="w-full bg-primary text-dark py-3 rounded-full font-bold hover:bg-yellow-500 transition-colors">
-                        Get Started
-                    </button>
+                    <button class="w-full bg-primary text-dark py-3 rounded-full font-bold hover:bg-yellow-500 transition-colors">Get Started</button>
                 </div>
-                
-                <!-- Premium Plan -->
+                <!-- Premium -->
                 <div class="pricing-card glass-card p-8 rounded-2xl">
                     <h3 class="text-xl font-bold mb-4 text-gray-300">Premium</h3>
-                    <div class="mb-6 price-tag">
-                        <span class="text-3xl font-bold text-primary">₹24,999</span>
-                    </div>
+                    <div class="mb-6 price-tag"><span class="text-3xl font-bold text-primary">₹24,999</span></div>
                     <p class="text-gray-400 mb-6 text-sm">Complete solution for established businesses</p>
                     <ul class="space-y-4 mb-8">
-                        <li class="flex items-start feature-item">
-                            <i class="fas fa-check-circle text-primary mt-1 mr-2"></i>
-                            <span>Custom Design & Development</span>
-                        </li>
-                        <li class="flex items-start feature-item">
-                            <i class="fas fa-check-circle text-primary mt-1 mr-2"></i>
-                            <span>Advanced SEO Optimization</span>
-                        </li>
-                        <li class="flex items-start feature-item">
-                            <i class="fas fa-check-circle text-primary mt-1 mr-2"></i>
-                            <span>E-commerce Integration</span>
-                        </li>
-                        <li class="flex items-start feature-item">
-                            <i class="fas fa-check-circle text-primary mt-1 mr-2"></i>
-                            <span>Analytics Integration</span>
-                        </li>
-                        <li class="flex items-start feature-item">
-                            <i class="fas fa-check-circle text-primary mt-1 mr-2"></i>
-                            <span>Content Management System</span>
-                        </li>
-                        <li class="flex items-start feature-item">
-                            <i class="fas fa-check-circle text-primary mt-1 mr-2"></i>
-                            <span>24/7 Support</span>
-                        </li>
+                        <li class="flex items-start feature-item"><i class="fas fa-check-circle text-primary mt-1 mr-2"></i><span>Custom Design & Development</span></li>
+                        <li class="flex items-start feature-item"><i class="fas fa-check-circle text-primary mt-1 mr-2"></i><span>Advanced SEO Optimization</span></li>
+                        <li class="flex items-start feature-item"><i class="fas fa-check-circle text-primary mt-1 mr-2"></i><span>E-commerce Integration</span></li>
+                        <li class="flex items-start feature-item"><i class="fas fa-check-circle text-primary mt-1 mr-2"></i><span>Analytics Integration</span></li>
+                        <li class="flex items-start feature-item"><i class="fas fa-check-circle text-primary mt-1 mr-2"></i><span>Content Management System</span></li>
+                        <li class="flex items-start feature-item"><i class="fas fa-check-circle text-primary mt-1 mr-2"></i><span>24/7 Support</span></li>
                     </ul>
-                    <button class="w-full border-2 border-gray-700 text-gray-300 py-3 rounded-full hover:border-primary hover:text-primary transition-colors">
-                        Get Started
-                    </button>
+                    <button class="w-full border-2 border-gray-700 text-gray-300 py-3 rounded-full hover:border-primary hover:text-primary transition-colors">Get Started</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- ══════════════════════════════════════════
+         CONTACT SECTION
+    ══════════════════════════════════════════ -->
     <section id="contact" class="py-20">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-16">
                     <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Grow Your Business?</h2>
-                    <p class="text-gray-400 max-w-2xl mx-auto">
-                        Get your professional website in 3-5 days with our streamlined process
-                    </p>
+                    <p class="text-gray-400 max-w-2xl mx-auto">Get your professional website in 3-5 days with our streamlined process</p>
                 </div>
-                
                 <div class="glass-card p-8 md:p-12 rounded-2xl">
                     <form action="https://formsubmit.co/yourmail@gmail.com" method="POST" class="space-y-6">
-
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_subject" value="New Website Inquiry - Pratham Patel Studio">
-    <input type="hidden" name="_template" value="table">
-
-    <div class="grid md:grid-cols-2 gap-6">
-        <div>
-            <label class="block text-sm font-medium mb-2">Your Name</label>
-            <input type="text" name="name" required
-                class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3">
-        </div>
-
-        <div>
-            <label class="block text-sm font-medium mb-2">Business Name</label>
-            <input type="text" name="business" required
-                class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3">
-        </div>
-    </div>
-
-    <div>
-        <label class="block text-sm font-medium mb-2">Message</label>
-        <textarea name="message" rows="5" required
-            class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3"></textarea>
-    </div>
-
-    <button type="submit"
-        class="w-full bg-primary text-dark font-bold py-4 rounded-lg">
-        Send Message
-    </button>
-</form>
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_subject" value="New Website Inquiry - Pratham Patel Studio">
+                        <input type="hidden" name="_template" value="table">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Your Name</label>
+                                <input type="text" name="name" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Business Name</label>
+                                <input type="text" name="business" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Message</label>
+                            <textarea name="message" rows="5" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary text-dark font-bold py-4 rounded-lg">Send Message</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -801,71 +765,299 @@
 
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/918849234066" target="_blank"
-   class="fixed bottom-8 right-8 bg-primary text-dark w-16 h-16 rounded-full flex items-center justify-center shadow-lg hover:bg-yellow-500 transition-colors floating z-50">
-    <i class="fab fa-whatsapp text-xl"></i>
-</a>
+        class="fixed bottom-8 right-8 bg-primary text-dark w-16 h-16 rounded-full flex items-center justify-center shadow-lg hover:bg-yellow-500 transition-colors floating z-50">
+        <i class="fab fa-whatsapp text-xl"></i>
+    </a>
 
-    <!-- Footer -->
+    <!-- Admin Trigger Button (subtle, bottom-left) -->
+    <button id="adminTrigger" onclick="openLogin()" title="Admin Panel">
+        <i class="fas fa-shield-alt"></i>
+    </button>
+
+    <!-- ══════════════════════════════════════════
+         FOOTER
+    ══════════════════════════════════════════ -->
     <footer class="border-t border-gray-800 py-12">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-
-    <!-- Left (Logo) -->
-    <div class="flex items-center space-x-2">
-       <div class="w-10 h-10 flex items-center justify-center">
-    <img src="images/StudioLogo.png" alt="Pratham Patel Studio Logo" class="w-8 h-8 object-contain">
-</div>
-        <span class="text-xl font-bold">Pratham Patel Studio</span>
-    </div>
-
-    <!-- Center (Copyright) -->
-    <div class="text-gray-400 text-sm text-center flex-1">
-        © 2026 Pratham Patel Studio. All rights reserved.
-    </div>
-
-    <!-- Right (optional empty or links) -->
-    <div class="hidden md:block w-32"></div>
-
-</div>
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6 container mx-auto px-4">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 flex items-center justify-center">
+                    <img src="images/StudioLogo.png" alt="Pratham Patel Studio Logo" class="w-8 h-8 object-contain">
+                </div>
+                <span class="text-xl font-bold">Pratham Patel Studio</span>
+            </div>
+            <div class="text-gray-400 text-sm text-center flex-1">© 2026 Pratham Patel Studio. All rights reserved.</div>
+            <div class="hidden md:block w-32"></div>
+        </div>
     </footer>
 
+    <!-- ══════════════════════════════════════════
+         JAVASCRIPT
+    ══════════════════════════════════════════ -->
     <script>
-        // Scroll reveal functionality
-        const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
-        
-        scrollRevealElements.forEach(element => {
-            observer.observe(element);
-        });
-        
-        // Smooth scrolling for navigation
-        function scrollToSection(sectionId) {
-            const element = document.getElementById(sectionId);
-            if (element) {
-                window.scrollTo({
-                    top: element.offsetTop - 80,
-                    behavior: 'smooth'
-                });
+        // ─────────────────────────────────────────
+        // CONFIGURATION — change your password here
+        // ─────────────────────────────────────────
+        const ADMIN_PASSWORD = 'pratham@studio2026';
+
+        // ─────────────────────────────────────────
+        // DEFAULT PROJECTS (shown on first load)
+        // ─────────────────────────────────────────
+        const DEFAULT_PROJECTS = [
+            {
+                id: 1,
+                title: 'Restaurant Website Demo',
+                category: 'Restaurant',
+                desc: 'Modern interface with online ordering system and reservation booking',
+                link: 'Restaurant.html',
+                image: 'images/restaurant.jpg'
+            },
+            {
+                id: 2,
+                title: 'Café Website Demo',
+                category: 'Café',
+                desc: 'Attractive layout with menu display and event calendar integration',
+                link: 'Cafe.html',
+                image: 'images/cafe.jpg'
+            },
+            {
+                id: 3,
+                title: 'Sweet Shop Website Demo',
+                category: 'Sweet Shop',
+                desc: 'Beautiful product showcase with online ordering capability',
+                link: 'sweetshop.html',
+                image: 'images/sweetshop.jpg'
+            }
+        ];
+
+        // ─────────────────────────────────────────
+        // LOAD PROJECTS FROM LOCALSTORAGE
+        // ─────────────────────────────────────────
+        function getProjects() {
+            const saved = localStorage.getItem('pps_portfolio');
+            if (saved) {
+                try { return JSON.parse(saved); } catch(e) {}
+            }
+            return DEFAULT_PROJECTS;
+        }
+
+        function saveProjects(projects) {
+            localStorage.setItem('pps_portfolio', JSON.stringify(projects));
+        }
+
+        let projects = getProjects();
+
+        // ─────────────────────────────────────────
+        // RENDER PUBLIC PORTFOLIO GRID
+        // ─────────────────────────────────────────
+        function renderPortfolio() {
+            const grid = document.getElementById('portfolioGrid');
+            if (!projects.length) {
+                grid.innerHTML = '<p class="text-gray-500 col-span-3 text-center py-12">No projects yet. Add some from the admin panel.</p>';
+                return;
+            }
+
+            grid.innerHTML = projects.map(p => {
+                const hasImage = p.image && p.image.trim() !== '';
+                const imageBlock = hasImage
+                    ? `<div class="h-48 overflow-hidden"><img src="${escHtml(p.image)}" alt="${escHtml(p.title)}" class="w-full h-full object-cover"></div>`
+                    : `<div class="h-48 bg-gradient-to-r from-yellow-900 to-amber-800 flex items-center justify-center">
+                            <i class="fas fa-globe text-5xl text-primary/50"></i>
+                       </div>`;
+
+                return `
+                <a href="${escHtml(p.link)}" target="_blank" class="block">
+                    <div class="glass-card rounded-2xl overflow-hidden lift-hover">
+                        ${imageBlock}
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">${escHtml(p.title)}</h3>
+                            <p class="text-gray-400 mb-4">${escHtml(p.desc)}</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs bg-primary/20 text-primary px-3 py-1 rounded-full">${escHtml(p.category)}</span>
+                                <button class="text-primary hover:text-yellow-400 transition-colors">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </a>`;
+            }).join('');
+        }
+
+        function escHtml(str) {
+            const d = document.createElement('div');
+            d.appendChild(document.createTextNode(str || ''));
+            return d.innerHTML;
+        }
+
+        // ─────────────────────────────────────────
+        // RENDER ADMIN PROJECT LIST
+        // ─────────────────────────────────────────
+        function renderAdminList() {
+            const list = document.getElementById('adminProjectList');
+            const count = document.getElementById('projectCount');
+            count.textContent = `(${projects.length} project${projects.length !== 1 ? 's' : ''})`;
+
+            if (!projects.length) {
+                list.innerHTML = '<p style="color:#555; font-size:0.88rem; padding:16px 0;">No projects yet. Add your first one above.</p>';
+                return;
+            }
+
+            list.innerHTML = projects.map((p, i) => {
+                const hasImg = p.image && p.image.trim() !== '';
+                const thumbHtml = hasImg
+                    ? `<img src="${escHtml(p.image)}" class="project-row-thumb" alt="">`
+                    : `<div class="project-row-thumb" style="display:flex;align-items:center;justify-content:center;"><i class="fas fa-globe" style="color:#F5B700; font-size:1.4rem;"></i></div>`;
+
+                return `
+                <div class="project-row">
+                    ${thumbHtml}
+                    <div class="project-row-info">
+                        <strong>${escHtml(p.title)}</strong>
+                        <span>${escHtml(p.link)}</span>
+                    </div>
+                    <span style="font-size:0.75rem; color:#555; background:#1a1a1a; border:1px solid #2a2a2a; padding:4px 10px; border-radius:20px; flex-shrink:0;">${escHtml(p.category)}</span>
+                    <button class="admin-btn-danger" onclick="deleteProject(${i})">
+                        <i class="fas fa-trash-alt mr-1"></i>Remove
+                    </button>
+                </div>`;
+            }).join('');
+        }
+
+        // ─────────────────────────────────────────
+        // ADD PROJECT
+        // ─────────────────────────────────────────
+        function addProject() {
+            const title    = document.getElementById('newTitle').value.trim();
+            const category = document.getElementById('newCategory').value.trim();
+            const desc     = document.getElementById('newDesc').value.trim();
+            const link     = document.getElementById('newLink').value.trim();
+            const image    = document.getElementById('newImage').value.trim();
+
+            if (!title || !category || !desc || !link) {
+                showToast('Please fill in all required fields.');
+                return;
+            }
+
+            const newProject = {
+                id: Date.now(),
+                title, category, desc, link, image
+            };
+
+            projects.push(newProject);
+            saveProjects(projects);
+            renderAdminList();
+            renderPortfolio();
+
+            // Clear fields
+            document.getElementById('newTitle').value    = '';
+            document.getElementById('newCategory').value = '';
+            document.getElementById('newDesc').value     = '';
+            document.getElementById('newLink').value     = '';
+            document.getElementById('newImage').value    = '';
+
+            showToast('Project added successfully!');
+        }
+
+        // ─────────────────────────────────────────
+        // DELETE PROJECT
+        // ─────────────────────────────────────────
+        function deleteProject(index) {
+            if (!confirm(`Remove "${projects[index].title}" from the portfolio?`)) return;
+            projects.splice(index, 1);
+            saveProjects(projects);
+            renderAdminList();
+            renderPortfolio();
+            showToast('Project removed.');
+        }
+
+        // ─────────────────────────────────────────
+        // SAVE & APPLY
+        // ─────────────────────────────────────────
+        function saveAndApply() {
+            saveProjects(projects);
+            renderPortfolio();
+            showToast('Changes saved and applied!');
+        }
+
+        // ─────────────────────────────────────────
+        // LOGIN FLOW
+        // ─────────────────────────────────────────
+        function openLogin() {
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('loginError').style.display = 'none';
+            document.getElementById('loginModal').classList.add('active');
+            setTimeout(() => document.getElementById('passwordInput').focus(), 200);
+        }
+
+        function closeLogin() {
+            document.getElementById('loginModal').classList.remove('active');
+        }
+
+        function checkPassword() {
+            const val = document.getElementById('passwordInput').value;
+            if (val === ADMIN_PASSWORD) {
+                closeLogin();
+                openAdmin();
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
             }
         }
-        
-        // Floating animation effect
-        document.addEventListener('DOMContentLoaded', function() {
-            const floatingElements = document.querySelectorAll('.floating');
-            
-            floatingElements.forEach((el, index) => {
-                setTimeout(() => {
-                    el.classList.add('floating');
-                }, index * 200);
+
+        // ─────────────────────────────────────────
+        // ADMIN PANEL OPEN / CLOSE
+        // ─────────────────────────────────────────
+        function openAdmin() {
+            renderAdminList();
+            document.getElementById('adminOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAdmin() {
+            document.getElementById('adminOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close admin overlay on background click
+        document.getElementById('adminOverlay').addEventListener('click', function(e) {
+            if (e.target === this) closeAdmin();
+        });
+
+        // ─────────────────────────────────────────
+        // TOAST NOTIFICATION
+        // ─────────────────────────────────────────
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // ─────────────────────────────────────────
+        // SCROLL REVEAL
+        // ─────────────────────────────────────────
+        const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
             });
+        }, { threshold: 0.1 });
+        scrollRevealElements.forEach(el => observer.observe(el));
+
+        // ─────────────────────────────────────────
+        // SMOOTH SCROLL
+        // ─────────────────────────────────────────
+        function scrollToSection(sectionId) {
+            const el = document.getElementById(sectionId);
+            if (el) window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' });
+        }
+
+        // ─────────────────────────────────────────
+        // INIT
+        // ─────────────────────────────────────────
+        document.addEventListener('DOMContentLoaded', function () {
+            renderPortfolio();
         });
     </script>
 </body>
